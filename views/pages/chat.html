@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Group 12 Groupchat</title>
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      /* #messages > li:nth-child(odd) { background: #efefef; } */
+    </style>
+  </head>
+  <body style="max-width: 1000px; margin: auto;;">
+    <script>
+        checkLoggedIn();
+        function checkLoggedIn() {
+          // Get the value of "isLogged" from localStorage
+          const isLogged = localStorage.getItem('isLogged');
+
+          // Check if "isLogged" is false or blank
+          if (isLogged === 'false' || !isLogged) {
+            // Redirect to index.html
+            window.location.href = '/';
+          }
+        }
+        localStorage.getItem("username");
+        console.log(localStorage.getItem("username"));
+    </script>
+    <ul id="messages"></ul>
+    <form id="form" action="" style="max-width: 1000px; margin: auto;">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io();
+
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var username = localStorage.getItem("username");
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+        socket.emit('chat message', username + ": " + input.value);
+        input.value = '';
+        }
+    });
+
+    socket.on('chat message', function(msg) {
+        const parts = msg.split(':');
+        
+        var item = document.createElement('li');
+        item.style.borderRadius = '30px';
+        //item.style.maxWidth = '300px';
+        item.textContent = msg;
+        item.style.float = 'left';
+        item.style.textAlign = 'left';
+       
+        if (parts[0].trim() === localStorage.getItem("username")) {
+            item.style.textAlign = 'right';
+            item.style.backgroundColor = '#78CADD'
+            item.style.float = 'right';
+        }
+        else{
+          item.style.backgroundColor = '#BFBDBC'
+        }
+        messages.appendChild(item);
+        for (var i = 0; i < 3; i++) {
+        var lineBreak = document.createElement('br');
+        messages.appendChild(lineBreak);
+        }
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+    </script>
+    <script src="./assets/js/main.js"></script>
+    </body>
+</html>

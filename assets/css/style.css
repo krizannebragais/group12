@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+body{
+    font-family: 'Rubik', sans-serif !important;
+}
+
+section{
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.position-relative {
+    height: 50%;
+}
+  
+.card-img-top {
+    position: absolute;
+    top: -100%;
+    left: 25%;
+    transform: translateX(-50%);
+    transform: translateY(-80%);
+    width: 100%;
+    height: auto;
+}
