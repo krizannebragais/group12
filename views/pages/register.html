@@ -20,7 +20,7 @@
                 <div class="text-center">
                     <img src="./assets/img/textLogo.png" alt="Image" style="max-width: 40%;">
                 </div>
-                <p class="mt-2 text-center">Log in with ChatBUZZ to get started!</p>
+                <p class="mt-2 text-center">Register with ChatBUZZ to get started!</p>
                 <form>
                     <div class="mt-3 form-floating mb-3">
                         <input type="text" class="form-control" id="username" placeholder="name@example.com" required>
@@ -55,28 +55,50 @@
                     }
                     function register1(event) {
                     event.preventDefault();
-
+                    
                     var username = document.getElementById("username").value;
                     var password = document.getElementById("password").value;
+                    var confirmPassword = document.getElementById("confirmPassword").value;
 
-                    fetch("/addUser", {
-                        method: "POST",
-                        headers: {
-                        "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ username: username, password: password })
-                    })
-                    .then(function(response) {
-                        if (response.ok) {
-                        console.log("User registered successfully!");
-                        alert("User registered successfully!")
-                        // Redirect to login page or perform any other action
-                        } else {
-                        console.log("Failed to register user.");
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log("Error occurred during registration:", error);
+                    fetch('/getUsers')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const users = data.users[0]; // Access the array of user objects
+
+                                    // Check if username and password exist in the user data
+                                    const foundUser = Object.values(users).find(user => user.username === username);
+
+                                    if (foundUser) {
+                                       alert("Username already exists. Please try again.");
+                                    } else {
+                                        if(password !== confirmPassword){
+                                            alert("Entered Passwords do not match. Please try again.")
+                                        }
+                                        else{
+                                            fetch("/addUser", {
+                                            method: "POST",
+                                            headers: {
+                                            "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({ username: username, password: password })
+                                            })
+                                            .then(function(response) {
+                                                if (response.ok) {
+                                                console.log("User registered successfully!");
+                                                alert("User registered successfully!")
+                                                // Redirect to login page or perform any other action
+                                                } else {
+                                                console.log("Failed to register user.");
+                                                }
+                                            })
+                                            .catch(function(error) {
+                                                console.log("Error occurred during registration:", error);
+                                            });
+                                        }
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log('Error:', error);
                     });
                     }
                 </script>

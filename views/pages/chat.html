@@ -15,7 +15,7 @@
       /* #messages > li:nth-child(odd) { background: #efefef; } */
     </style>
   </head>
-  <body style="max-width: 1000px; margin: auto;;">
+  <body style="max-width: 1000px; margin: auto;; background-color: #F3A931;">
     <script>
         checkLoggedIn();
         function checkLoggedIn() {
@@ -31,13 +31,21 @@
         localStorage.getItem("username");
         console.log(localStorage.getItem("username"));
     </script>
-    <ul id="messages"></ul>
+    <ul id="messages" style="margin-top: 50px;"></ul>
     <form id="form" action="" style="max-width: 1000px; margin: auto;">
-      <input id="input" autocomplete="off" /><button>Send</button>
+      <input id="input" autocomplete="off"><button style="background-color: #78CADD; color: black; cursor: pointer;">Send</button>
+      <button onclick="logout()" style="background-color: #BFBDBC; color: black; cursor: pointer;"> Log out</button>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+
+      function logout(){
+        localStorage.removeItem('isLogged');
+        localStorage.removeItem('username');
+        alert("Log out successful!");
+        window.location.href = "/";
+      }
     var socket = io();
 
     var messages = document.getElementById('messages');
@@ -62,6 +70,7 @@
         item.textContent = msg;
         item.style.float = 'left';
         item.style.textAlign = 'left';
+        item.style.padding = '15px';
        
         if (parts[0].trim() === localStorage.getItem("username")) {
             item.style.textAlign = 'right';

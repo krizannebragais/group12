@@ -1,1 +1,12 @@
-{"users":[{"user1":{"username":"Kindson","password":"kany1"},"user2":{"username":"Saffron","password":"saffron1"},"user3":{"username":"lowes","password":"1234"},"user4":{"username":"denz","password":"1234"},"user5":{"username":"helloworld","password":"1234"}}]}
+{
+    "users": [{
+        "user1": {
+            "username": "krizanne",
+            "password": "pass1234"
+        },
+        "user2": {
+            "username": "test1",
+            "password": "pass1234"
+        }
+    }]
+  }
