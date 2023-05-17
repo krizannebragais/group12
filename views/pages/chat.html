@@ -17,7 +17,7 @@
     </style>
     <link href="./assets/css/style.css" rel="stylesheet">
   </head>
-  <body style="max-width: 1000px; margin: auto;; background-color: #F3A931;">
+  <body style="background-color: #F3A931;">
     <script>
         checkLoggedIn();
         function checkLoggedIn() {
@@ -33,15 +33,20 @@
         localStorage.getItem("username");
         console.log(localStorage.getItem("username"));
     </script>
-    <ul id="messages" style="margin-top: 50px;"></ul>
-    <form id="form" action="" style="max-width: 1000px; margin: auto;">
-      <input id="input" autocomplete="off"><button style="background-color: #78CADD; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;">Send</button>
-      <button onclick="logout()" style="background-color: #BFBDBC; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;"> Log out</button>
-    </form>
-
+    <h1 style="text-align: center; margin: 0; margin-top: 10px;">Group Chat</h1>
+    <div style="max-width: 1000px; height: 80vh; margin: auto; border-radius: 20px; background-color: white !important;">
+      <ul id="messages" style="margin-top: 20px; overflow: auto; height: 80vh;padding-left: 10px;padding-right: 10px;"></ul>
+      <form id="form" action="" style="max-width: 1000px; margin: auto;">
+        <input id="input" autocomplete="off"><button style="background-color: #78CADD; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;">Send</button>
+        <button onclick="logout()" style="background-color: #BFBDBC; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;">Log out</button>
+      </form>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-
+      function scrollToBottom() {
+        const messages = document.getElementById('messages');
+        messages.scrollTop = messages.scrollHeight;
+      }
       function logout(){
         localStorage.removeItem('isLogged');
         localStorage.removeItem('username');
@@ -87,7 +92,8 @@
         var lineBreak = document.createElement('br');
         messages.appendChild(lineBreak);
         }
-        window.scrollTo(0, document.body.scrollHeight);
+        // window.scrollTo(0, document.body.scrollHeight);
+        scrollToBottom();
     });
     </script>
     <script src="./assets/js/main.js"></script>
