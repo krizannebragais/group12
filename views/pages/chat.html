@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <title>Group 12 Groupchat</title>
     <style>
       body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
@@ -14,6 +15,7 @@
       #messages > li { padding: 0.5rem 1rem; }
       /* #messages > li:nth-child(odd) { background: #efefef; } */
     </style>
+    <link href="./assets/css/style.css" rel="stylesheet">
   </head>
   <body style="max-width: 1000px; margin: auto;; background-color: #F3A931;">
     <script>
@@ -33,8 +35,8 @@
     </script>
     <ul id="messages" style="margin-top: 50px;"></ul>
     <form id="form" action="" style="max-width: 1000px; margin: auto;">
-      <input id="input" autocomplete="off"><button style="background-color: #78CADD; color: black; cursor: pointer;">Send</button>
-      <button onclick="logout()" style="background-color: #BFBDBC; color: black; cursor: pointer;"> Log out</button>
+      <input id="input" autocomplete="off"><button style="background-color: #78CADD; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;">Send</button>
+      <button onclick="logout()" style="background-color: #BFBDBC; color: black; cursor: pointer; font-family: 'Rubik', sans-serif !important;"> Log out</button>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
